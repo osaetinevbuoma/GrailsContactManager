@@ -1,122 +1,98 @@
+
 <!DOCTYPE html>
-<html>
-	<head>
-		<meta name="layout" content="main"/>
-		<title>Welcome to Grails</title>
-		<style type="text/css" media="screen">
-			#status {
-				background-color: #eee;
-				border: .2em solid #fff;
-				margin: 2em 2em 1em;
-				padding: 1em;
-				width: 12em;
-				float: left;
-				-moz-box-shadow: 0px 0px 1.25em #ccc;
-				-webkit-box-shadow: 0px 0px 1.25em #ccc;
-				box-shadow: 0px 0px 1.25em #ccc;
-				-moz-border-radius: 0.6em;
-				-webkit-border-radius: 0.6em;
-				border-radius: 0.6em;
-			}
+<html lang="en">
+  <head>
+    <meta name="layout" content="main">
+    <link rel="icon" href="../../favicon.ico">
 
-			.ie6 #status {
-				display: inline; /* float double margin fix http://www.positioniseverything.net/explorer/doubled-margin.html */
-			}
+    <title>Grails Contact Manager</title>
 
-			#status ul {
-				font-size: 0.9em;
-				list-style-type: none;
-				margin-bottom: 0.6em;
-				padding: 0;
-			}
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
 
-			#status li {
-				line-height: 1.3;
-			}
-
-			#status h1 {
-				text-transform: uppercase;
-				font-size: 1.1em;
-				margin: 0 0 0.3em;
-			}
-
-			#page-body {
-				margin: 2em 1em 1.25em 18em;
-			}
-
-			h2 {
-				margin-top: 1em;
-				margin-bottom: 0.3em;
-				font-size: 1em;
-			}
-
-			p {
-				line-height: 1.5;
-				margin: 0.25em 0;
-			}
-
-			#controller-list ul {
-				list-style-position: inside;
-			}
-
-			#controller-list li {
-				line-height: 1.3;
-				list-style-position: inside;
-				margin: 0.25em 0;
-			}
-
-			@media screen and (max-width: 480px) {
-				#status {
-					display: none;
-				}
-
-				#page-body {
-					margin: 0 1em 1em;
-				}
-
-				#page-body h1 {
-					margin-top: 0;
-				}
-			}
-		</style>
-	</head>
-	<body>
-		<a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-		<div id="status" role="complementary">
-			<h1>Application Status</h1>
-			<ul>
-				<li>App version: <g:meta name="app.version"/></li>
-				<li>Grails version: <g:meta name="app.grails.version"/></li>
-				<li>Groovy version: ${GroovySystem.getVersion()}</li>
-				<li>JVM version: ${System.getProperty('java.version')}</li>
-				<li>Reloading active: ${grails.util.Environment.reloadingAgentEnabled}</li>
-				<li>Controllers: ${grailsApplication.controllerClasses.size()}</li>
-				<li>Domains: ${grailsApplication.domainClasses.size()}</li>
-				<li>Services: ${grailsApplication.serviceClasses.size()}</li>
-				<li>Tag Libraries: ${grailsApplication.tagLibClasses.size()}</li>
-			</ul>
-			<h1>Installed Plugins</h1>
-			<ul>
-				<g:each var="plugin" in="${applicationContext.getBean('pluginManager').allPlugins}">
-					<li>${plugin.name} - ${plugin.version}</li>
-				</g:each>
-			</ul>
-		</div>
-		<div id="page-body" role="main">
-			<h1>Welcome to Grails</h1>
-			<p>Congratulations, you have successfully started your first Grails application! At the moment
-			   this is the default page, feel free to modify it to either redirect to a controller or display whatever
-			   content you may choose. Below is a list of controllers that are currently deployed in this application,
-			   click on each to execute its default action:</p>
-
-			<div id="controller-list" role="navigation">
-				<h2>Available Controllers:</h2>
-				<ul>
-					<g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
-						<li class="controller"><g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link></li>
-					</g:each>
-				</ul>
-			</div>
-		</div>
-	</body>
+  <body>
+  	<div class="row">
+  		<div class="col-lg-1"></div>
+  		<div class="col-lg-10">
+  			<div class="row">
+  				<h2 style="text-align: center;">Grails Contant Manager</h2> <hr />
+  				
+  				<g:if test="${flash.success}">
+					<div class="alert alert-success">${flash.success}</div>
+					</g:if>
+					
+					<g:if test="${flash.error}">
+					<div class="alert alert-danger">${flash.error}</div>
+					</g:if>
+					
+  				<div class="col-lg-6">
+  					<h3>Please sign in</h3> <hr />
+  					<g:form role="form" url="[controller: 'main', action: 'validate']">
+  						<div class="form-group">
+  							<label>Username</label>
+  							<input type="text" class="form-control" name="username" value="" required autofocus />
+  						</div>
+  						<div class="form-group">
+  							<label>Password</label>
+  							<input type="password" class="form-control" name="password" required />
+  						</div>
+  						<button type="submit" class="btn btn-primary btn-sm">Sign In</button>
+ 					</g:form>
+  				</div>
+  				<div class="col-lg-6">
+  					<h3>Register a user</h3> <hr />
+					<g:hasErrors bean="${userInstance}">
+					<ul class="alert alert-danger">
+						<g:eachError bean="${userInstance}" var="error">
+						<li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
+						</g:eachError>
+					</ul>
+					</g:hasErrors>
+					
+  					<g:form role="form" url="[resource: userInstance, controller: 'main', action: 'register']">
+  						<div class="row">
+	  						<div class="col-lg-6">
+		  						<div class="form-group">
+		  							<label>First Name</label>
+		  							<input type="text" class="form-control" name="firstName" value="${ userInstance?.firstName }" required />
+		  						</div>
+	  						</div>
+	  						<div class="col-lg-6">
+		  						<div class="form-group">
+		  							<label>Surname</label>
+		  							<input type="text" class="form-control" name="surname" value="${ userInstance?.surname }" required />
+		  						</div>
+	  						</div>
+  						</div>
+  						<div class="form-group">
+  							<label>Username</label>
+  							<input type="text" class="form-control" name="username" value="${ userInstance?.username }" required />
+  						</div>
+  						<div class="row">
+	  						<div class="col-lg-6">
+		  						<div class="form-group">
+		  							<label>Password</label>
+		  							<input type="password" class="form-control" name="password" value="" required />
+		  						</div>
+	  						</div>
+	  						<div class="col-lg-6">
+		  						<div class="form-group">
+		  							<label>Confirm Password</label>
+		  							<input type="password" class="form-control" name="confirm_password" value="" required />
+		  						</div>
+	  						</div>
+  						</div>
+  						<button type="submit" class="btn btn-primary btn-sm">Register</button>
+  					</g:form>
+  				</div>
+  			</div>
+ 		</div>
+  		<div class="col-lg-1"></div>
+  	</div>
+  </body>
 </html>
+

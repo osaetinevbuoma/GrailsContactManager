@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>Contact Manager</name>
+	<name>ContactManager</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -26,7 +26,7 @@
 		<link>
 			<name>.link_to_grails_plugins</name>
 			<type>2</type>
-			<location>/home/oevbuoma/Documents/workspace/grails/Contact Manager/target/work/plugins</location>
+			<location>/home/oevbuoma/Documents/workspace/eclipse-workspace/ContactManager/target/work/plugins</location>
 		</link>
 	</linkedResources>
 </projectDescription>
