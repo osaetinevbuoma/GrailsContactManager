@@ -16,22 +16,8 @@
 			<g:render template="email" />
 			<hr />
 			<g:render template="phone" />
-			
-			<ol class="property-list contact">
-			
-			
-				<g:if test="${contactInstance?.groups}">
-				<li class="fieldcontain">
-					<span id="groups-label" class="property-label"><g:message code="contact.groups.label" default="Groups" /></span>
-					
-						<g:each in="${contactInstance.groups}" var="g">
-						<span class="property-value" aria-labelledby="groups-label"><g:link controller="groups" action="show" id="${g.id}">${g?.encodeAsHTML()}</g:link></span>
-						</g:each>
-					
-				</li>
-				</g:if>
-			
-			</ol>
+			<hr />
+			<g:render template="group" />
 			
 			<hr />
 			

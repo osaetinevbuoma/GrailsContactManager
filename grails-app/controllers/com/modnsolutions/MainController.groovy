@@ -4,6 +4,12 @@ import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
 class MainController {
+
+	/**
+	 * Display login page if user isn't logged in
+	 * @return view login
+	 */
+	def index() { render view: "login" }
 	
 	/**
 	 * Register a new user.
@@ -59,13 +65,24 @@ class MainController {
 		if (User.findByUsername(userInstance.username) && User.findByPassword(userInstance.password)) {
 			session.user = User.findByUsername(userInstance.username)
 			request.withFormat {
-				form multipart { redirect controller: "contact" }
+				form multipartForm { redirect controller: "contact" }
 				"*" { 
 					render "User validated"
 					response.status = 200
 				}
 			}
-		} 
+		} else {
+			request.withFormat {
+				form multipartForm {
+					flash.error = "Username and password match is incorrect"
+					redirect uri: "/"
+				}
+				"*" {
+					render "Not Found"
+					response.status = 404
+				}
+			}
+		}
 	}
 	
 	/**

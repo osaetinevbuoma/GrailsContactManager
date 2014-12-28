@@ -3,9 +3,15 @@
 	<div class="alert alert-success">${ flash.message }</div>
 	</g:if>
 
+	<g:if test="${ flash.error }">
+		<div class="alert alert-danger">${ flash.error }</div>
+	</g:if>
+
 	<g:if test="${ contactInstance?.emailAddresses }">
-	<div class="col-lg-6">
-		<table class="table table-responsive table-hover">
+	<div class="col-lg-8">
+		<h4>Email Addresses</h4>
+
+		<table class="table table-responsive table-striped table-hover">
 			<tbody>
 				<g:each in="${ contactInstance?.emailAddresses? }" var="emailAddress">
 				<tr>
@@ -13,6 +19,16 @@
 					<td>
 						<g:link action="editEmail" id="${ emailAddress.id }">
 							Edit <span class="glyphicon glyphicon-edit"></span>
+						</g:link>
+					</td>
+					<td>
+						<g:link controller="emailMessages" action="writeEmail" id="${ emailAddress.id }">
+							Write Message <span class="glyphicon glyphicon-send"></span>
+						</g:link>
+					</td>
+					<td>
+						<g:link controller="emailMessages" action="emailHistory" id="${emailAddress.id}">
+							Message History <span class="glyphicon glyphicon-inbox"></span>
 						</g:link>
 					</td>
 					<td>
@@ -32,7 +48,7 @@
 		</table>
 	</div>
 	</g:if>
-	<div class="col-lg-6">
+	<div class="col-lg-4">
 		<h4>Add Email Addresses</h4>
 
 		<g:form url="[resource:emailAddressesInstance, action:'createEmail']">

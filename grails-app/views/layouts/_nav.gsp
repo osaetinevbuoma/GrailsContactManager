@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+<nav class="navbar navbar-default navbar-fixed-top navbar-inverse" xmlns:g="http://www.w3.org/1999/html">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -20,8 +20,8 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Welcome, ${ session.user.firstName } ${ session.user.surname } <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li class="dropdown-header">Account Settings</li>
-            <li><a href="#">Personal Information</a></li>
-            <li><a href="#">Change Password</a></li>
+            <li><g:link mapping="userAccount" params="[username: session.user.username]">Personal Information</g:link></li>
+            <li><g:link mapping="changePassword" params="[username: session.user.username]">Change Password</g:link></li>
             <li class="divider"></li>
             <li><g:link controller="main" action="logout">Logout</g:link></li>
           </ul>

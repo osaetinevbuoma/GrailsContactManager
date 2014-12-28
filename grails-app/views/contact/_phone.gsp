@@ -5,7 +5,9 @@
 
 	<g:if test="${ contactInstance?.phoneNumbers }">
 	<div class="col-lg-6">
-		<table class="table table-responsive table-hover">
+		<h4>Phone Numbers</h4>
+
+		<table class="table table-responsive table-striped table-hover">
 			<tbody>
 				<g:each in="${ contactInstance?.phoneNumbers? }" var="phoneNumber">
 				<tr>

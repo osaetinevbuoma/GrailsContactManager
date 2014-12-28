@@ -40,7 +40,7 @@
 						<table class="table table-hover table-responsive">
 							<thead>
 								<tr>
-									<th>Group</th>
+									<th>Groups</th>
 									<th></th>
 									<th></th>
 								</tr>

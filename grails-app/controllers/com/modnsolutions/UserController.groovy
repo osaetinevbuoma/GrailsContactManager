@@ -8,45 +8,10 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class UserController {
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [update: "PUT", updatePassword: "PUT", delete: "DELETE"]
 
-    def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond User.list(params), model:[userInstanceCount: User.count()]
-    }
-
-    def show(User userInstance) {
-        respond userInstance
-    }
-
-    def create() {
-        respond new User(params)
-    }
-
-    @Transactional
-    def save(User userInstance) {
-        if (userInstance == null) {
-            notFound()
-            return
-        }
-
-        if (userInstance.hasErrors()) {
-            respond userInstance.errors, view:'create'
-            return
-        }
-
-        userInstance.save flush:true
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'user.label', default: 'User'), userInstance.id])
-                redirect userInstance
-            }
-            '*' { respond userInstance, [status: CREATED] }
-        }
-    }
-
-    def edit(User userInstance) {
+    def edit() {
+        def userInstance = User.findByUsername(params.username)
         respond userInstance
     }
 
@@ -66,8 +31,8 @@ class UserController {
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'User.label', default: 'User'), userInstance.id])
-                redirect userInstance
+                flash.success = "Your personal information has been updated"
+                redirect mapping: "userAccount", params: [username: userInstance.username]
             }
             '*'{ respond userInstance, [status: OK] }
         }
@@ -89,6 +54,41 @@ class UserController {
                 redirect action:"index", method:"GET"
             }
             '*'{ render status: NO_CONTENT }
+        }
+    }
+
+    /**
+     * Show the edit password view
+     */
+    def editPassword() {
+        def userInstance = User.findByUsername(params.username)
+        respond userInstance
+    }
+
+    /**
+     * Update password
+     */
+    @Transactional
+    def updatePassword(User userInstance) {
+        if (userInstance.password != params.confirmPassword) {
+            flash.error = "Passwords do not match"
+            redirect mapping: "changePassword", params: [username: userInstance.username]
+            return
+        }
+
+        if (userInstance == null) {
+            notFound()
+            return
+        }
+
+        userInstance.save flush: true
+
+        request.withFormat {
+            form multipartForm {
+                flash.success = "You have successfully updated your password"
+                redirect mapping: "changePassword", params: [username: userInstance.username]
+            }
+            "*" { render status: OK }
         }
     }
 

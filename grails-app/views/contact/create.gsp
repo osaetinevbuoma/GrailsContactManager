@@ -34,11 +34,6 @@
 						<g:submitButton name="create" class="btn btn-primary" value="${message(code: 'default.button.create.label', default: 'Create')}" />
 					</g:form>
 				</div>
-				<div class="col-lg-6">
-					<g:if test="${ contactInstance?.firstName && contactInstance?.surname }">
-						
-					</g:if>
-				</div>
 			</div>
 		</div>
 	</body>

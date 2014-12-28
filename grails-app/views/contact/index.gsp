@@ -1,7 +1,7 @@
 
 <%@ page import="com.modnsolutions.Contact" %>
 <!DOCTYPE html>
-<html>
+<html xmlns:g="http://www.w3.org/1999/html">
 	<head>
 		<meta name="layout" content="main">
 		<g:set var="entityName" value="${message(code: 'contact.label', default: 'Contact')}" />
@@ -11,13 +11,13 @@
 		<g:render template="../layouts/nav" />
 		
 		<div>
-			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
+			<h1><g:message code="default.list.label" args="[entityName]" /></h1> <hr />
 
 			<g:if test="${flash.message}">
 				<div class="alert alert-success" role="status">${flash.message}</div>
 			</g:if>
 
-			<table class="table table-responsive table-stripped table-hover">
+			<table class="table table-responsive table-striped table-hover table-bordered">
 				<thead>
 					<tr>
 					
@@ -27,11 +27,11 @@
 					
 						<g:sortableColumn property="surname" title="${message(code: 'contact.surname.label', default: 'Surname')}" />
 					
-						<th><g:message code="contact.user.label" default="User" /></th>
-					
 						<g:sortableColumn property="dateCreated" title="${message(code: 'contact.dateCreated.label', default: 'Date Created')}" />
-					
-						<g:sortableColumn property="lastUpdated" title="${message(code: 'contact.lastUpdated.label', default: 'Last Updated')}" />
+
+						<th></th>
+
+						<th></th>
 					
 					</tr>
 				</thead>
@@ -39,25 +39,30 @@
 				<g:each in="${contactInstanceList}" status="i" var="contactInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${contactInstance.id}">${fieldValue(bean: contactInstance, field: "firstName")}</g:link></td>
+						<td>${fieldValue(bean: contactInstance, field: "firstName")}</td>
 					
 						<td>${fieldValue(bean: contactInstance, field: "middleName")}</td>
 					
 						<td>${fieldValue(bean: contactInstance, field: "surname")}</td>
 					
-						<td>${fieldValue(bean: contactInstance, field: "user")}</td>
-					
-						<td><g:formatDate date="${contactInstance.dateCreated}" /></td>
-					
-						<td><g:formatDate date="${contactInstance.lastUpdated}" /></td>
+						<td><g:formatDate date="${contactInstance.dateCreated}" format="dd/MM/yyyy" /></td>
+
+						<td>
+							<g:link action="show" id="${ contactInstance.id }">
+								View Details <span class="glyphicon glyphicon-folder-open"></span>
+							</g:link>
+						</td>
+
+						<td>
+							<g:link action="delete" id="${ contactInstance.id }" class="text-danger" onclick="return confirm('Are you sure? This cannot be reversed');">
+								Delete <span class="glyphicon glyphicon-trash"></span>
+							</g:link>
+						</td>
 					
 					</tr>
 				</g:each>
 				</tbody>
 			</table>
-			<div class="pagination">
-				<g:paginate total="${contactInstanceCount ?: 0}" />
-			</div>
 			
 			<br />
 			

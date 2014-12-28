@@ -5,6 +5,10 @@ class Message {
 	Email email
 	Date dateCreated
 	Date lastUpdated
+
+	String toString() {
+		"$message"
+	}
 	
 	static belongsTo = Email
 
