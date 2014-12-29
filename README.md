@@ -7,8 +7,8 @@ The application is written with the Grails framework and was created to perfect 
 
 To install:
 
-git clone https://github.com/osaetinevbuoma/ContactManager.git
-cd ContactManager/
+git clone https://github.com/osaetinevbuoma/GrailsContactManager.git <br />
+cd ContactManager/ <br />
 grails run-app
 
 The project will continue to be modified for improvement
